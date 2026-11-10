@@ -4,295 +4,124 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark">
-<meta name="description" content="Интерактивная история разработки UNIX: от BabyAI до локальной платформы агентов.">
-<title>UNIX — хроника разработки · 2026</title>
-<style>
-:root{--bg:#070913;--panel:#111625;--panel2:#151a2b;--line:#2a314a;--text:#f1f2fc;--dim:#a7abc1;--muted:#797f9c;--cyan:#73e9e1;--purple:#9c89ff;--pink:#ffa7df;--max:1180px}
-*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:92px}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,"Segoe UI",Arial,sans-serif;line-height:1.55;overflow-x:hidden}button,input{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}::selection{background:#8871fd77;color:#fff}
-.bg{pointer-events:none;position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse 48% 38% at 85% 4%,#49388950,transparent 85%),radial-gradient(ellipse 45% 32% at 2% 26%,#194e5740,transparent 95%),linear-gradient(180deg,#0b0d1c 0%,#080a13 42%,#070912 100%)}.bg:after{content:"";position:absolute;inset:0;opacity:.23;background-image:linear-gradient(#68729920 1px,transparent 1px),linear-gradient(90deg,#68729920 1px,transparent 1px);background-size:58px 58px;mask-image:linear-gradient(to bottom,black,transparent 85%)}
-.progress{position:fixed;top:0;left:0;width:0;height:3px;z-index:20;background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));box-shadow:0 0 18px #a48affaa;transition:width .1s linear}
-.wrap{max-width:var(--max);margin:0 auto;padding:0 32px}.topbar{height:80px;display:flex;align-items:center;justify-content:space-between;gap:14px;border-bottom:1px solid #ffffff0e}.brand{display:flex;align-items:center;gap:12px}.brand-icon{display:grid;place-items:center;width:38px;height:38px;border:1px solid #a997ff70;border-radius:13px;background:linear-gradient(135deg,#8c7afb44,#2fe0e022);font-size:23px;color:#d7caff;box-shadow:0 0 30px #9f8eff1b}.brand-name{font-weight:900;letter-spacing:.2em;font-size:19px}.brand-tail{color:var(--muted);font-size:10px;letter-spacing:.18em;text-transform:uppercase;margin-left:4px}.top-links{display:flex;gap:25px;align-items:center;color:var(--dim);font-size:13px}.top-links a:hover{color:var(--cyan)}.top-links .github{border:1px solid #56527385;padding:9px 14px;border-radius:12px;color:#f4f1ff;background:#9a8aff12}
-.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:38px;align-items:center;padding-top:95px;padding-bottom:92px;min-height:635px}.eyebrow{display:flex;align-items:center;gap:9px;color:var(--cyan);font-size:12px;font-weight:700;letter-spacing:.21em;text-transform:uppercase}.eyebrow:before{content:"";display:block;width:7px;height:7px;background:var(--cyan);border-radius:50%;box-shadow:0 0 18px var(--cyan)}.hero h1{font-size:clamp(52px,7.3vw,104px);letter-spacing:-.08em;line-height:.99;margin:24px 0 23px;font-weight:850}.hero h1 span{background:linear-gradient(100deg,#fff 3%,#cbc7ff 50%,var(--purple));background-clip:text;-webkit-background-clip:text;color:transparent}.hero-lead{font-size:18px;line-height:1.75;color:#b6b9cf;max-width:610px}.hero-lead strong{font-weight:650;color:#eeeafe}.hero-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:31px}.primary{display:inline-flex;align-items:center;gap:12px;background:#a58dff;color:#080917;border:0;border-radius:12px;padding:13px 19px;font-weight:800;box-shadow:0 8px 40px #9872ff3b;transition:transform .2s,background .2s}.primary:hover{transform:translateY(-3px);background:#c0adff}.secondary{border:1px solid #606583;background:#12172891;color:#f4f0ff;border-radius:12px;padding:12px 17px;font-size:13px}.secondary:hover{background:#252946}.hero-caption{display:flex;gap:13px;align-items:center;margin-top:32px;color:#8990ad;font-size:11px;letter-spacing:.12em;text-transform:uppercase}.hero-caption .slash{height:16px;width:1px;background:#4e546d}
-.orb-scene{height:405px;position:relative;display:grid;place-items:center;isolation:isolate}.orb-halo{position:absolute;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,#a588ff35 0%,#695dc510 52%,transparent 72%);filter:blur(16px);animation:breathing 5s ease-in-out infinite}.orbit{position:absolute;border-radius:50%;border:1px solid #9c8cff34;inset:15px;animation:orbit 36s linear infinite}.orbit.two{inset:43px;border-style:dashed;border-color:#63d9e032;animation-duration:25s;animation-direction:reverse}.orbit.three{inset:79px;border-color:#e3a5fd23;animation-duration:18s}.orbit:before{content:"";position:absolute;top:14%;left:17%;width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 20px var(--cyan)}.orbit.two:before{background:var(--pink);box-shadow:0 0 22px var(--pink)}.orbit.three:before{background:var(--purple);box-shadow:0 0 22px var(--purple)}.orb{height:186px;width:186px;border-radius:48%;background:radial-gradient(circle at 28% 22%,#e5d4ff 0%,#c0aaf7 13%,#8b7af7 38%,#554bb2 74%,#30296a 100%);box-shadow:inset -13px -21px 33px #26215190,inset 6px 9px 19px #fffffe5c,0 0 80px #8b71ff55,0 0 0 8px #9586ff13;display:grid;place-items:center;position:relative;transform:rotate(-6deg);animation:float 5s ease-in-out infinite}.orb:before{content:"";width:100px;height:100px;border:1px solid #ffffff4f;border-radius:50%;position:absolute}.face{color:#fff;font-size:45px;letter-spacing:.1em;font-weight:700;text-shadow:0 2px 6px #5442aa;font-family:"Segoe UI",sans-serif}.orb-label{position:absolute;top:38px;right:0;color:#b6afff;background:#17162c;border:1px solid #555178;border-radius:10px;padding:9px 12px;font-size:11px;font-weight:800;letter-spacing:.1em}.orb-status{position:absolute;bottom:23px;left:0;border:1px solid #4e5a70;color:#bedcd9;background:#101c27ed;box-shadow:0 12px 36px #0006;padding:11px 14px;border-radius:11px;font-size:12px}.orb-status span{display:inline-block;width:7px;height:7px;background:#75d8b8;border-radius:50%;margin-right:7px;box-shadow:0 0 14px #75d8b8}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;border:1px solid #303750;border-radius:20px;overflow:hidden;background:#303750}.stat{padding:27px 29px;background:linear-gradient(150deg,#171b2a,#101421)}.stat .big{font-size:38px;letter-spacing:-.05em;font-weight:850;line-height:1.1}.stat .big em{font-size:15px;font-style:normal;color:var(--purple)}.stat p{font-size:12px;color:#a5aac3;margin:10px 0 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;padding-top:103px;padding-bottom:27px}.section-kicker{color:var(--purple);font-size:11px;letter-spacing:.24em;font-weight:800;text-transform:uppercase}.section-head h2{margin:8px 0 0;font-size:clamp(28px,4vw,47px);line-height:1.1;letter-spacing:-.055em}.section-note{font-size:13px;color:var(--muted);max-width:280px;text-align:right}
-.tools{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding-bottom:37px}.filters{display:flex;flex-wrap:wrap;gap:8px}.filter{color:#b1b5cd;background:#151b2b;border:1px solid #313956;border-radius:999px;padding:9px 16px;font-size:12px;transition:.2s}.filter:hover{border-color:#a58dff8c;color:#fff}.filter[aria-pressed="true"]{background:#a38cff;color:#0b0a18;border-color:#bbaaff;font-weight:800}.search{height:41px;min-width:200px;display:flex;align-items:center;gap:8px;border:1px solid #343a56;border-radius:12px;background:#111725;padding:0 14px;color:#818bab}.search input{background:transparent;border:0;outline:0;color:#f7f4ff;min-width:0;width:174px;font-size:12px}.search:focus-within{border-color:#9a88fb}.search input::placeholder{color:#777f99}
-.timeline{position:relative;padding-left:0}.timeline:before{content:"";position:absolute;width:2px;left:187px;top:45px;bottom:26px;background:linear-gradient(180deg,#6365a2 0%,#6e5aaf 52%,#33c5cf 92%,transparent 100%);opacity:.7}.event{position:relative;display:grid;grid-template-columns:160px 1fr;gap:70px;padding:0 0 25px}.event-date{display:flex;flex-direction:column;align-items:flex-end;padding-top:29px;gap:4px;text-align:right;color:#b9bbd5;font-size:12px}.event-num{color:#737a9d;font-size:10px;letter-spacing:.18em;font-weight:800}.rail-node{position:absolute;top:34px;left:180px;height:16px;width:16px;border-radius:50%;background:#141629;border:2px solid #9b89ff;box-shadow:0 0 0 7px #8e79ff18;z-index:2;display:grid;place-items:center}.rail-core{height:5px;width:5px;background:#d7c7ff;border-radius:50%;box-shadow:0 0 12px #a792ff}.event:last-child .rail-node{border-color:var(--cyan);box-shadow:0 0 0 7px #66d7d91c}.event:last-child .rail-core{background:var(--cyan)}.event-card{padding:29px 32px 0;border:1px solid #353b56;border-radius:19px;background:linear-gradient(130deg,#191d30f7 0%,#111524f7 85%);transition:transform .3s,border-color .3s,box-shadow .3s;position:relative;overflow:hidden}.event-card:before{content:"";position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,#b8a5ff6b,transparent 60%)}.event-card:hover{transform:translateY(-2px);border-color:#8b78df88;box-shadow:0 14px 48px #0003}.card-top{display:flex;justify-content:space-between;align-items:center;gap:12px}.event-category{display:inline-block;color:#b2a3ff;font-size:10px;letter-spacing:.19em;font-weight:850}.event-symbol{font-size:23px;color:var(--cyan);opacity:.88}.event-card h3{font-size:24px;line-height:1.25;letter-spacing:-.04em;margin:8px 0 3px}.event-subtitle{font-size:14px;color:#e2def7;margin:0 0 15px;font-weight:650}.event-description{font-size:13px;line-height:1.78;color:#aab0c8;max-width:760px;margin:0 0 19px}.tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}.tag{border:1px solid #424462;background:#7775aa1a;color:#c4c6e0;border-radius:6px;padding:4px 8px;font-size:10px}.details{border-top:1px solid #41455d;--detail-pad:17px}.details summary{list-style:none;display:flex;justify-content:space-between;align-items:center;padding:15px 0 16px;color:#cbc4ff;font-weight:700;font-size:12px;cursor:pointer;user-select:none}.details summary::-webkit-details-marker{display:none}.details summary:hover{color:#fff}.summary-plus{font-size:21px;font-weight:400;transition:transform .2s}.details[open] .summary-plus{transform:rotate(45deg)}.details-content{padding-bottom:22px;animation:detailsin .2s ease}.details-content ul{margin:0 0 18px;padding-left:19px;color:#bdc0d2;font-size:12px;line-height:1.8}.details-content li{padding-left:5px;margin:4px 0}.details-content li::marker{color:var(--cyan)}.details-content blockquote{margin:0;padding:12px 17px;border-left:2px solid var(--purple);background:#977aff12;color:#d8d0ff;font-size:13px;font-style:italic}.source-link{display:inline-block;font-size:12px;color:var(--cyan);margin-top:16px;font-weight:700}.source-link:hover{text-decoration:underline}.hidden{display:none!important}.empty{border:1px dashed #616587;border-radius:14px;padding:42px;text-align:center;color:#a9acc2;margin-left:230px}.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s,transform .6s}.reveal.is-visible{opacity:1;transform:none}
-.vision{margin-top:95px;position:relative;overflow:hidden;border:1px solid #3c3a66;border-radius:25px;background:radial-gradient(ellipse 70% 100% at 82% 0%,#68539e3b,transparent),linear-gradient(110deg,#1c1a37,#121725);padding:45px 48px}.vision-kicker{color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:.2em}.vision h2{font-size:clamp(29px,4vw,48px);letter-spacing:-.05em;max-width:700px;line-height:1.14;margin:13px 0 12px}.vision>p{font-size:14px;color:#bdbbd8;max-width:710px}.future-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-top:32px}.future-card{padding:22px;border:1px solid #5b58764d;background:#0c112a80;border-radius:14px;transition:border-color .2s}.future-card:hover{border-color:#a590ff99}.future-number{font-size:12px;color:#a6eae5;letter-spacing:.14em;font-weight:800}.future-card h3{font-size:16px;margin:6px 0 8px}.future-card p{color:#aeb1ca;font-size:12px;line-height:1.75;margin:0}
-.note{margin:45px 0 65px;padding:22px 26px;border-radius:16px;background:#101726;border:1px solid #2b3547;display:flex;align-items:flex-start;gap:18px}.note-icon{font-size:23px;color:var(--cyan)}.note strong{font-size:13px}.note p{color:#a4aac2;font-size:12px;line-height:1.7;margin:5px 0 0}.footer{display:flex;align-items:center;justify-content:space-between;gap:15px;border-top:1px solid #ffffff1a;padding:30px 0 44px;font-size:11px;color:#878ba7}.footer b{letter-spacing:.23em;font-weight:900;color:#bdb2f7}.back-top{border:1px solid #3f4565;border-radius:8px;padding:9px 12px;background:#141828;color:#dad5f3}.back-top:hover{background:#20253d}
-@keyframes float{50%{transform:translateY(-13px) rotate(5deg)}}@keyframes orbit{to{transform:rotate(360deg)}}@keyframes breathing{50%{opacity:.6;transform:scale(1.06)}}@keyframes detailsin{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-@media(max-width:850px){.top-links{gap:12px}.hero{grid-template-columns:1fr;padding-top:70px;padding-bottom:38px}.orb-scene{height:290px;max-width:400px;width:100%;margin:auto}.orbit{inset:0 55px}.orbit.two{inset:26px 80px}.orbit.three{inset:50px 107px}.orb{width:150px;height:150px}.orb:before{width:80px;height:80px}.orb-label{right:15px}.orb-status{left:12px}.timeline:before{left:112px}.event{grid-template-columns:88px 1fr;gap:48px}.rail-node{left:105px}.empty{margin-left:145px}.section-head{padding-top:75px}}
-@media(max-width:600px){.wrap{padding:0 18px}.topbar{height:66px}.brand-name{font-size:16px}.brand-tail{display:none}.top-links a:first-child{display:none}.top-links{gap:8px}.top-links .github{padding:7px 10px;font-size:11px}.hero{padding-top:64px;gap:10px;min-height:auto}.hero h1{font-size:54px}.hero-lead{font-size:15px}.hero-caption{font-size:9px;gap:9px}.orb-scene{height:295px}.stats{grid-template-columns:1fr 1fr}.stat{padding:18px}.stat:last-child{grid-column:1/-1}.stat .big{font-size:29px}.section-head{display:block}.section-note{text-align:left;margin-top:11px}.tools{align-items:stretch}.filters{gap:6px}.filter{font-size:11px;padding:7px 11px}.search{width:100%}.search input{width:100%;flex:1}.timeline:before{left:9px;top:30px}.event{grid-template-columns:1fr;gap:8px;padding-left:29px;padding-bottom:20px}.event-date{align-items:flex-start;text-align:left;padding-top:0;flex-direction:row;align-items:center;font-size:11px;gap:12px}.rail-node{left:2px;top:2px;height:16px;width:16px}.event-card{padding:20px 20px 0;border-radius:15px}.event-card h3{font-size:20px}.event-description{font-size:12px}.empty{margin-left:28px;padding:25px}.vision{padding:27px 21px;margin-top:70px}.future-grid{grid-template-columns:1fr}.note{padding:19px}.footer{flex-wrap:wrap}.section-head h2{font-size:36px}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
-@media print{.bg,.progress,.tools,.hero-actions,.top-links,.orbit,.orb-halo,.orb-scene,.back-top{display:none!important}html{color-scheme:light}body{background:#fff;color:#111} .hero{min-height:auto;padding:25px 0}.hero h1 span{color:#111!important}.event-card,.future-card,.stat,.vision{background:#fff;border:1px solid #aaa;color:#111}.event-description,.event-subtitle,.event-date,.stat p,.future-card p,.vision>p{color:#333}.reveal{opacity:1;transform:none}.timeline:before{background:#888}.event{break-inside:avoid}.details-content{display:block}.footer{color:#444}}
-
-/* UNIX cinematic intro; no network, images or external libraries */
-.boot-screen{position:fixed;inset:0;z-index:9999;background:radial-gradient(ellipse 75% 70% at 50% 45%,#25204f 0%,#0b0d1d 60%,#050611 100%);display:none;align-items:center;justify-content:center;color:#f5f2ff;isolation:isolate;overflow:hidden;opacity:1;transition:opacity .55s ease,visibility .55s ease}
-html.boot-on .boot-screen:not([hidden]){display:flex}
-html.boot-on body{overflow:hidden}
-.boot-screen[hidden]{display:none!important}
-.boot-screen.is-leaving{opacity:0;visibility:hidden;pointer-events:none}
-.boot-screen:before{content:"";position:absolute;inset:-20%;background-image:linear-gradient(#8a82bd14 1px,transparent 1px),linear-gradient(90deg,#8a82bd14 1px,transparent 1px);background-size:58px 58px;mask-image:radial-gradient(ellipse,black,transparent 75%);transform:perspective(800px) rotateX(20deg);animation:boot-grid 6s ease-in-out infinite alternate}
-.boot-screen:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 25%,#bea2ff09 50%,transparent 75%);animation:boot-scan 3.2s linear infinite;pointer-events:none}
-.boot-bar{position:absolute;top:clamp(18px,4vh,40px);left:clamp(18px,5vw,70px);right:clamp(18px,5vw,70px);z-index:2;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.boot-mark{display:flex;align-items:center;gap:12px}.boot-mark-icon{width:38px;height:38px;display:grid;place-items:center;border:1px solid #a69cf584;border-radius:11px;background:#8575f330;color:#e3dcff;font-size:22px}
-.boot-mark strong{display:block;font-size:12px;letter-spacing:.22em}.boot-mark small{display:block;color:#9b9fbc;font:10px Consolas,monospace;letter-spacing:.12em;margin-top:4px}
-.boot-skip,.boot-replay{cursor:pointer;border:1px solid #655d8d;background:#1b1a32;color:#e3d9ff;border-radius:999px;padding:10px 16px;font-size:11px;font-weight:700;letter-spacing:.06em}
-.boot-skip:hover,.boot-skip:focus-visible,.boot-replay:hover,.boot-replay:focus-visible{background:#353057;border-color:#c5b6ff;outline-offset:3px}
-.boot-replay{padding:8px 12px;color:#d5c9fa;white-space:nowrap}
-.boot-center{z-index:2;position:relative;text-align:center;width:min(560px,calc(100vw - 38px));display:flex;flex-direction:column;align-items:center;margin-top:-16px}
-.boot-orbit{position:relative;width:230px;height:230px;display:grid;place-items:center}
-.boot-orbit-ring{position:absolute;inset:5px;border:1px solid #ad9aff7c;border-radius:50%;animation:boot-spin 11s linear infinite}
-.boot-orbit-ring:nth-child(2){inset:27px;border-style:dashed;border-color:#74eae380;animation-direction:reverse;animation-duration:8s}
-.boot-orbit-ring:nth-child(3){inset:48px;border-color:#f5baff73;animation-duration:15s}
-.boot-orbit-ring:before{content:"";position:absolute;top:14%;left:14%;width:7px;height:7px;border-radius:50%;background:#94eae1;box-shadow:0 0 18px #79faf0}
-.boot-orbit-ring:nth-child(2):before{background:#e9b1ff;box-shadow:0 0 17px #e9b1ff}
-.boot-orb{width:122px;height:122px;display:grid;place-items:center;border-radius:44%;background:radial-gradient(circle at 28% 22%,#e6d4ff,#aa8bf5 33%,#6d54cf 69%,#31255c);box-shadow:inset 7px 8px 20px #ffffff5e,inset -10px -17px 32px #22185385,0 0 70px #9376ee75;animation:boot-pulse 2.6s ease-in-out infinite}
-.boot-orb span{font-size:33px;color:white;text-shadow:0 2px 7px #403085}
-.boot-kicker{color:#8df3e7;font:11px Consolas,monospace;letter-spacing:.22em;text-transform:uppercase}
-.boot-title{font-size:clamp(75px,16vw,145px);font-weight:900;letter-spacing:-.09em;line-height:1;margin:7px 0;background:linear-gradient(110deg,#fff 20%,#e0d3ff 52%,#9b88fb 90%);background-clip:text;-webkit-background-clip:text;color:transparent;animation:boot-arrive 1s ease-out both}
-.boot-sub{color:#b8b9d0;font-size:12px;letter-spacing:.26em;text-transform:uppercase;margin-bottom:35px}
-.boot-terminal{width:min(470px,100%);border:1px solid #57547c;background:#0f1124dc;border-radius:14px;text-align:left;padding:17px 19px;box-shadow:0 16px 55px #0007}
-.boot-terminal-top{color:#9499ba;font:10px Consolas,monospace;letter-spacing:.1em;display:flex;align-items:center;gap:8px}
-.boot-led{width:6px;height:6px;border-radius:50%;background:#74e5c9;box-shadow:0 0 13px #74e5c9;animation:boot-blink 1s ease-in-out infinite alternate}
-.boot-status{font:13px Consolas,monospace;min-height:24px;color:#f3f5ff;margin:17px 0}
-.boot-status:after{content:"▌";color:#80eae7;animation:boot-cursor .65s step-end infinite}
-.boot-track{height:4px;background:#373b5b;border-radius:999px;overflow:hidden}.boot-fill{height:100%;width:0%;background:linear-gradient(90deg,#6eeadd,#9f89fd,#e8b7fd);box-shadow:0 0 19px #ad93ff;border-radius:999px}
-.boot-footer{position:absolute;z-index:2;left:clamp(18px,5vw,70px);right:clamp(18px,5vw,70px);bottom:clamp(20px,4vh,40px);display:flex;justify-content:space-between;gap:15px;color:#858baa;font:10px Consolas,monospace;letter-spacing:.09em}
-@keyframes boot-grid{to{transform:perspective(800px) rotateX(20deg) translateY(-30px)}}
-@keyframes boot-scan{from{transform:translateX(-130%)}to{transform:translateX(130%)}}
-@keyframes boot-spin{to{transform:rotate(360deg)}}
-@keyframes boot-pulse{50%{transform:scale(1.07);filter:brightness(1.1)}}
-@keyframes boot-arrive{from{opacity:0;transform:translateY(24px);filter:blur(8px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
-@keyframes boot-blink{to{opacity:.35}}@keyframes boot-cursor{50%{opacity:0}}
-@media(max-width:600px){.boot-orbit{width:188px;height:188px}.boot-orb{width:110px;height:110px}.boot-sub{letter-spacing:.14em;margin-bottom:23px}.boot-footer span:last-child{display:none}.boot-mark small{display:none}.boot-terminal{padding:15px}.boot-center{margin-top:0}}
-@media(prefers-reduced-motion:reduce){.boot-screen{display:none!important}.boot-screen *,.boot-screen:before,.boot-screen:after{animation:none!important;transition:none!important}}
-@media print{.boot-screen,.boot-replay{display:none!important}}
-
-</style>
-<script>(function(){if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('boot-on');setTimeout(function(){document.documentElement.classList.remove('boot-on');},6500);}})();</script>
+<meta name="theme-color" content="#080b17">
+<meta name="description" content="UNIX — развивающаяся локальная интеллектуальная система с памятью, инструментами и специализированными ИИ-агентами. Архитектура, демонстрации и история проекта.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'">
+<title>UNIX — Интеллект обретает форму</title>
+<link rel="stylesheet" href="./styles.css">
+<script src="./app.js" defer></script>
 </head>
 <body>
-<div id="unixBoot" class="boot-screen" role="dialog" aria-modal="true" aria-label="Вступительная анимация UNIX">
- <div class="boot-bar"><div class="boot-mark"><div class="boot-mark-icon" aria-hidden="true">✦</div><div><strong>UNIX / DEVELOPMENT</strong><small>SYSTEM CHRONICLE · 2026</small></div></div><button id="bootSkip" class="boot-skip" type="button">Пропустить ↗</button></div>
- <div class="boot-center"><div class="boot-orbit" aria-hidden="true"><span class="boot-orbit-ring"></span><span class="boot-orbit-ring"></span><span class="boot-orbit-ring"></span><div class="boot-orb"><span>• ᴗ •</span></div></div>
- <div class="boot-kicker">The evolution of an intelligence</div><div class="boot-title">UNIX</div><div class="boot-sub">Development Chronicle / 2026</div>
- <div class="boot-terminal"><div class="boot-terminal-top"><span class="boot-led"></span>SYSTEM STARTUP / LOCAL-FIRST</div><div class="boot-status" id="bootStatus" role="status" aria-live="polite">Инициализация UNIX…</div><div class="boot-track" aria-hidden="true"><div id="bootFill" class="boot-fill"></div></div></div></div>
- <div class="boot-footer"><span>ESC — ПРОПУСТИТЬ</span><span>PRIMUS · MEMORIA · AGENTS</span></div>
-</div>
-<div class="bg" aria-hidden="true"></div><div class="progress" id="scrollProgress" aria-hidden="true"></div>
-<div class="wrap">
-<header class="topbar" id="top">
-  <a class="brand" href="#top" aria-label="UNIX — наверх"><span class="brand-icon">✦</span><span class="brand-name">UNIX</span><span class="brand-tail">development archive</span></a>
-  <nav class="top-links" aria-label="Навигация"><button id="bootReplay" type="button" class="boot-replay" title="Повторить заставку UNIX">↻ Интро</button><a href="#history">Хронология</a><a href="#vision">Будущее</a><a class="github" href="https://github.com/philip377/BabyAI-Core" target="_blank" rel="noopener noreferrer">GitHub ↗</a></nav>
+<div class="site-backdrop" aria-hidden="true"></div><div class="noise" aria-hidden="true"></div>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="logo" href="./index.html" aria-label="UNIX — главная"><span class="logo-mark" aria-hidden="true">✦</span><span class="logo-word">UNIX</span><span class="logo-caption">intelligence system</span></a>
+    <button class="nav-toggle" type="button" aria-label="Открыть меню" aria-controls="siteNav" aria-expanded="false">☰ Меню</button>
+    <nav id="siteNav" class="nav" aria-label="Навигация">
+      <a href="#about">Возможности</a><a href="#architecture">Архитектура</a><a href="#agents">Агенты</a><a href="#demonstration">Демонстрация</a><a href="./history.html">Хронология</a><a class="nav-cta" href="#roadmap">Планы развития ↗</a>
+    </nav>
+  </div>
 </header>
 <main>
-  <section class="hero" aria-labelledby="page-title">
-    <div>
-      <div class="eyebrow">Хроника создания · 2026</div>
-      <h1 id="page-title">История<br><span>UNIX.</span></h1>
-      <p class="hero-lead">Когда-то это был эксперимент с локальным ИИ под названием <strong>BabyAI</strong>. Теперь — проект собственной интеллектуальной системы: с памятью, голосом, инструментами и командой специализированных агентов.</p>
-      <div class="hero-actions"><a class="primary" href="#history">Исследовать историю <span aria-hidden="true">↓</span></a><a class="secondary" href="#vision">Что дальше ↗</a></div>
-      <div class="hero-caption"><span>12.08.2026</span><span class="slash"></span><span>04.11.2026</span><span class="slash"></span><span>От идеи — к действию</span></div>
+  <section class="wrap hero" aria-labelledby="mainTitle">
+    <div class="hero-copy">
+      <div class="eyebrow">Local-first / AI research & development</div>
+      <h1 id="mainTitle">UNIX</h1>
+      <div class="hero-title-sub">Интеллект<br>обретает форму<span class="accent">.</span></div>
+      <p class="hero-lead">Не просто чат с нейросетью. <strong>UNIX — проект интеллектуальной среды</strong>, которая сможет помнить контекст, работать с инструментами и распределять задачи между специализированными агентами. Всё с приоритетом локальной обработки.</p>
+      <div class="button-row"><a class="btn btn-primary" href="#demonstration">Попробовать демо <span aria-hidden="true">↗</span></a><a class="btn btn-secondary" href="#architecture">Исследовать систему <span aria-hidden="true">↓</span></a></div>
+      <div class="hero-meta"><span>Основан в 2026</span><b aria-hidden="true"></b><span>Локальность — принцип</span><b aria-hidden="true"></b><span>Разработка продолжается</span></div>
     </div>
-    <div class="orb-scene" aria-label="Декоративная визуализация виртуального агента UNIX" role="img">
-      <div class="orb-halo"></div><div class="orbit"></div><div class="orbit two"></div><div class="orbit three"></div>
-      <div class="orb"><div class="face" aria-hidden="true">• ᴗ •</div></div>
-      <div class="orb-label">GINGER / AGENT 01</div><div class="orb-status"><span></span>ЭВОЛЮЦИЯ ПРОДОЛЖАЕТСЯ</div>
+    <div class="core-stage" role="img" aria-label="Анимированное ядро UNIX с орбитами, символизирующими память, инструменты и агентов">
+      <div class="stage-grid"></div><div class="core-glow"></div><div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
+      <div class="core"><div class="core-face"><span class="eye"></span><span class="eye"></span><span class="smile"></span></div></div>
+      <div class="stage-label top">MEMORIA / CONTEXT</div><div class="stage-label bottom">PRIMUS / COORDINATION</div>
     </div>
   </section>
-  <section class="stats" aria-label="Проект в цифрах">
-    <div class="stat"><div class="big">11 <em>этапов</em></div><p>От Genesis до питомца Ginger</p></div>
-    <div class="stat"><div class="big">3 <em>направления</em></div><p>Ядро · интерфейс · агенты</p></div>
-    <div class="stat"><div class="big">∞ <em>возможностей</em></div><p>Разработка продолжается</p></div>
+  <div class="wrap">
+    <div class="snapshot" aria-label="Принципы проекта">
+      <div><strong>Local-first</strong><p>Приоритет обработки на устройстве</p></div>
+      <div><strong>Multi-agent</strong><p>Специализация и координация</p></div>
+      <div><strong>Human control</strong><p>Подтверждение важных действий</p></div>
+    </div>
+  </div>
+
+  <section class="wrap section" id="about">
+    <div class="section-head"><div><div class="label">01 / Возможности</div><h2>Одна система.<br><span class="accent">Много способов помочь.</span></h2></div><p>Каждая возможность развивается отдельно и постепенно собирается в общую интеллектуальную среду.</p></div>
+    <div class="cap-grid">
+      <article class="feature"><div class="feature-icon" aria-hidden="true">⌁</div><h3>Локальный интеллект</h3><p>Собственные вычисления, локальные модели и архитектура, уменьшающая зависимость от внешних сервисов.</p><span class="pill prototype"><span class="dot"></span>Разрабатывается</span></article>
+      <article class="feature"><div class="feature-icon" aria-hidden="true">◎</div><h3>Долговременная память</h3><p>Система контекста, фактов и истории взаимодействий, чтобы не начинать каждую задачу с нуля.</p><span class="pill plan"><span class="dot"></span>Развитие модуля</span></article>
+      <article class="feature"><div class="feature-icon" aria-hidden="true">✧</div><h3>Агентная команда</h3><p>Специализированные помощники для разных задач: от анализа данных до управления последовательностью действий.</p><span class="pill prototype"><span class="dot"></span>Прототипы</span></article>
+      <article class="feature"><div class="feature-icon" aria-hidden="true">⌘</div><h3>Инструменты и контроль</h3><p>Действия в программах через ограниченные разрешения, понятный журнал и подтверждение рискованных операций.</p><span class="pill plan"><span class="dot"></span>Проектируется</span></article>
+    </div>
   </section>
-  <section id="history" aria-labelledby="history-title">
-   <div class="section-head"><div><div class="section-kicker">/ LOGBOOK — DEVELOPMENT</div><h2 id="history-title">Хронология проекта</h2></div><p class="section-note">11 вех развития. Нажми «Подробнее», чтобы заглянуть внутрь каждого этапа.</p></div>
-   <div class="tools"><div class="filters" role="group" aria-label="Фильтр этапов"><button class="filter" data-filter="all" aria-pressed="true">Все события</button><button class="filter" data-filter="core" aria-pressed="false">Ядро</button><button class="filter" data-filter="interface" aria-pressed="false">Интерфейс</button><button class="filter" data-filter="agents" aria-pressed="false">Агенты</button><button class="filter" data-filter="story" aria-pressed="false">Повороты</button></div><label class="search" aria-label="Поиск по этапам"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Найти этап..." autocomplete="off"></label></div>
-   <div class="timeline" id="timeline">
-  <article id="event-01" class="event reveal" data-kind="core" data-search="genesis начало babyai первая архитектура локального помощника: собственное ядро, память, командный интерфейс и идея ии, который работает на твоём компьютере. babyai-core primus memoria sqlite">
-       <div class="rail-node" aria-hidden="true"><span class="rail-core"></span></div>
-       <div class="event-date"><span class="event-num">01</span><span>12 августа</span></div>
-       <div class="event-card">
-        <div class="card-top"><span class="event-category">ЯДРО</span><span class="event-symbol" aria-hidden="true">✦</span></div>
-        <h3>GENESIS</h3><p class="event-subtitle">Начало BabyAI</p>
-        <p class="event-description">Первая архитектура локального помощника: собственное ядро, память, командный интерфейс и идея ИИ, который работает на твоём компьютере.</p>
-        <div class="tags"><span class="tag">BabyAI-Core</span><span class="tag">PRIMUS</span><span class="tag">MEMORIA</span><span class="tag">SQLite</span></div>
-        <details class="details"><summary>Подробнее об этапе <span class="summary-plus" aria-hidden="true">+</span></summary><div class="details-content"><ul><li>Создан фундамент BabyAI-Core и базовые контуры PRIMUS.</li><li>MEMORIA получает роль долговременной памяти.</li><li>Появляется подход: небольшие изменения и обязательная проверка.</li></ul><blockquote>«Сначала — помощник для себя. Позже — целая экосистема.»</blockquote></div></details>
-       </div>
+
+  <section class="wrap section" id="architecture">
+    <div class="section-head"><div><div class="label">02 / Архитектура</div><h2>Внутри UNIX.</h2></div><p>Выбери модуль на схеме, чтобы увидеть, какую роль он играет в проектируемой системе.</p></div>
+    <div class="architecture">
+      <div class="architecture-map" aria-label="Интерактивная схема архитектуры UNIX">
+        <div class="arch-line l1" aria-hidden="true"></div><div class="arch-line l2" aria-hidden="true"></div>
+        <div class="node-hub" aria-hidden="true"><b>UNIX</b><small>CORE SYSTEM</small></div>
+        <button class="node" data-node="memory" aria-pressed="true" type="button">MEMORIA</button>
+        <button class="node" data-node="agents" aria-pressed="false" type="button">AGENTS</button>
+        <button class="node" data-node="voice" aria-pressed="false" type="button">VOICE</button>
+        <button class="node" data-node="tools" aria-pressed="false" type="button">TOOLS</button>
+      </div>
+      <article class="architecture-description" aria-live="polite">
+        <div class="label">Выбранный модуль</div><h3 id="moduleName">MEMORIA</h3>
+        <p id="moduleDescription">Память UNIX: контекст, значимые события, наблюдения и знания, которые помогают принимать следующие решения.</p>
+        <ul id="modulePoints"><li>Контекст и история взаимодействий</li><li>Контролируемое хранение данных</li><li>Поиск значимой информации</li></ul>
+        <span id="moduleBadge" class="pill plan">В развитии</span>
       </article>
-<article id="event-02" class="event reveal" data-kind="core" data-search="когнитивный каркас из отдельных функций — в систему проект обрастает механизмами наблюдения, инструментами, разрешениями и контуром выполнения агентских действий. observer agent loop permissions">
-       <div class="rail-node" aria-hidden="true"><span class="rail-core"></span></div>
-       <div class="event-date"><span class="event-num">02</span><span>12–15 августа</span></div>
-       <div class="event-card">
-        <div class="card-top"><span class="event-category">ЯДРО</span><span class="event-symbol" aria-hidden="true">◎</span></div>
-        <h3>КОГНИТИВНЫЙ КАРКАС</h3><p class="event-subtitle">Из отдельных функций — в систему</p>
-        <p class="event-description">Проект обрастает механизмами наблюдения, инструментами, разрешениями и контуром выполнения агентских действий.</p>
-        <div class="tags"><span class="tag">Observer</span><span class="tag">Agent Loop</span><span class="tag">Permissions</span></div>
-        <details class="details"><summary>Подробнее об этапе <span class="summary-plus" aria-hidden="true">+</span></summary><div class="details-content"><ul><li>Разделение ответственности между ядром и инструментами.</li><li>Контроль действий через разрешения вместо неограниченного доступа.</li><li>Первые контуры самостоятельного выполнения задач.</li></ul><blockquote>«Интеллект — это не только ответ, но и контролируемое действие.»</blockquote></div></details>
-       </div>
-      </article>
-<article id="event-03" class="event reveal" data-kind="core" data-search="локальный интеллект работать без зависимости от облака тестирование локального runtime, производительности и запуска моделей на доступном железе. цель — реальный офлайн-помощник, а не веб-оболочка. qwen3-8b vulkan rtx 2060 super runtime">
-       <div class="rail-node" aria-hidden="true"><span class="rail-core"></span></div>
-       <div class="event-date"><span class="event-num">03</span><span>15–25 августа</span></div>
-       <div class="event-card">
-        <div class="card-top"><span class="event-category">ЯДРО</span><span class="event-symbol" aria-hidden="true">⌁</span></div>
-        <h3>ЛОКАЛЬНЫЙ ИНТЕЛЛЕКТ</h3><p class="event-subtitle">Работать без зависимости от облака</p>
-        <p class="event-description">Тестирование локального runtime, производительности и запуска моделей на доступном железе. Цель — реальный офлайн-помощник, а не веб-оболочка.</p>
-        <div class="tags"><span class="tag">Qwen3-8B</span><span class="tag">Vulkan</span><span class="tag">RTX 2060 SUPER</span><span class="tag">Runtime</span></div>
-        <details class="details"><summary>Подробнее об этапе <span class="summary-plus" aria-hidden="true">+</span></summary><div class="details-content"><ul><li>Эксперименты с локальными моделями и диагностикой задержек.</li><li>Поиск конфигурации для ПК с ограниченными ресурсами.</li><li>Начало пути к переносимой Windows-сборке.</li></ul><blockquote>«Локальность становится принципом проекта, а не дополнительной опцией.»</blockquote></div></details>
-       </div>
-      </article>
-<article id="event-04" class="event reveal" data-kind="interface" data-search="голос и поток unix начинает разговаривать появляются потоковая выдача ответов, отмена генерации, голосовой ввод и подготовка к более естественному диалогу. stt vad streaming latency">
-       <div class="rail-node" aria-hidden="true"><span class="rail-core"></span></div>
-       <div class="event-date"><span class="event-num">04</span><span>25 августа — 3 сентября</span></div>
-       <div class="event-card">
-        <div class="card-top"><span class="event-category">ИНТЕРФЕЙС</span><span class="event-symbol" aria-hidden="true">◉</span></div>
-        <h3>ГОЛОС И ПОТОК</h3><p class="event-subtitle">UNIX начинает разговаривать</p>
-        <p class="event-description">Появляются потоковая выдача ответов, отмена генерации, голосовой ввод и подготовка к более естественному диалогу.</p>
-        <div class="tags"><span class="tag">STT</span><span class="tag">VAD</span><span class="tag">Streaming</span><span class="tag">Latency</span></div>
-        <details class="details"><summary>Подробнее об этапе <span class="summary-plus" aria-hidden="true">+</span></summary><div class="details-content"><ul><li>Потоковый вывод первых фрагментов ответа.</li><li>Эксперименты с распознаванием речи и детектором голоса.</li><li>Диагностика времени ответа и обработка отмены.</li></ul><blockquote>«Ассистент должен ощущаться живым, а не задумчивым терминалом.»</blockquote></div></details>
-       </div>
-      </article>
-<article id="event-05" class="event reveal" data-kind="interface" data-search="первый облик десктопный интерфейс unix winui-оболочка получает навигацию, рабочую область, компактный orb и привычные элементы настольной программы. winui orb навигация чаты">
-       <div class="rail-node" aria-hidden="true"><span class="rail-core"></span></div>
-       <div class="event-date"><span class="event-num">05</span><span>4–7 сентября</span></div>
-       <div class="event-card">
-        <div class="card-top"><span class="event-category">ИНТЕРФЕЙС</span><span class="event-symbol" aria-hidden="true">▣</span></div>
-        <h3>ПЕРВЫЙ ОБЛИК</h3><p class="event-subtitle">Десктопный интерфейс UNIX</p>
-        <p class="event-description">WinUI-оболочка получает навигацию, рабочую область, компактный ORB и привычные элементы настольной программы.</p>
-        <div class="tags"><span class="tag">WinUI</span><span class="tag">ORB</span><span class="tag">Навигация</span><span class="tag">Чаты</span></div>
-        <details class="details"><summary>Подробнее об этапе <span class="summary-plus" aria-hidden="true">+</span></summary><div class="details-content"><ul><li>Переход от экспериментов в консоли к Windows-интерфейсу.</li><li>Компактная форма помощника и боковая навигация.</li><li>Сохранение работающих подсистем при обновлении UI.</li></ul><blockquote>«У UNIX появляется не просто окно — появляется характер.»</blockquote></div></details>
-       </div>
-      </article>
-<article id="event-06" class="event reveal" data-kind="core" data-search="мышление в длину большие задачи вместо одного запроса развивается идея длительных заданий, устойчивого состояния, восстановления и строгой проверки результатов. durable jobs recovery primus">
-       <div class="rail-node" aria-hidden="true"><span class="rail-core"></span></div>
-       <div class="event-date"><span class="event-num">06</span><span>18–23 сентября</span></div>
-       <div class="event-card">
-        <div class="card-top"><span class="event-category">ЯДРО</span><span class="event-symbol" aria-hidden="true">◇</span></div>
-        <h3>МЫШЛЕНИЕ В ДЛИНУ</h3><p class="event-subtitle">Большие задачи вместо одного запроса</p>
-        <p class="event-description">Развивается идея длительных заданий, устойчивого состояния, восстановления и строгой проверки результатов.</p>
-        <div class="tags"><span class="tag">Durable jobs</span><span class="tag">Recovery</span><span class="tag">PRIMUS</span></div>
-        <details class="details"><summary>Подробнее об этапе <span class="summary-plus" aria-hidden="true">+</span></summary><div class="details-content"><ul><li>Курс на задачи, продолжающиеся через несколько шагов.</li><li>Отдельное внимание остановке, возобновлению и диагностике.</li><li>Название UNIX всё больше закрепляется за системой.</li></ul><blockquote>«Следующая цель — не отвечать на просьбу, а доводить работу до результата.»</blockquote></div></details>
-       </div>
-      </article>
-<article id="event-07" class="event reveal" data-kind="story" data-search="переоценка от экспериментальной архитектуры — к конкретной пользе после паузы акцент смещается к практическим задачам. unix должен экономить часы работы, а не просто демонстрировать возможности. новый фокус автоматизация рабочий сценарий">
-       <div class="rail-node" aria-hidden="true"><span class="rail-core"></span></div>
-       <div class="event-date"><span class="event-num">07</span><span>Октябрь</span></div>
-       <div class="event-card">
-        <div class="card-top"><span class="event-category">ПОВОРОТНЫЙ МОМЕНТ</span><span class="event-symbol" aria-hidden="true">Ⅱ</span></div>
-        <h3>ПЕРЕОЦЕНКА</h3><p class="event-subtitle">От экспериментальной архитектуры — к конкретной пользе</p>
-        <p class="event-description">После паузы акцент смещается к практическим задачам. UNIX должен экономить часы работы, а не просто демонстрировать возможности.</p>
-        <div class="tags"><span class="tag">Новый фокус</span><span class="tag">Автоматизация</span><span class="tag">Рабочий сценарий</span></div>
-        <details class="details"><summary>Подробнее об этапе <span class="summary-plus" aria-hidden="true">+</span></summary><div class="details-content"><ul><li>Приоритетом становится автоматизация реального рабочего процесса.</li><li>Фиксируется требование к понятным русским журналам действий.</li><li>Проверка отдельных модулей остаётся быстрее полной пересборки.</li></ul><blockquote>«Ценность ИИ измеряется тем, сколько реальной работы он снимает с человека.»</blockquote></div></details>
-       </div>
-      </article>
-<article id="event-08" class="event reveal" data-kind="agents" data-search="ginger agent первое прикладное направление unix учится безопасно читать интерфейс ginger, распознавать товары и предлагать варианты сопоставления. появляется первый конкретный агент. ginger cpu ocr сопоставление read-only">
-       <div class="rail-node" aria-hidden="true"><span class="rail-core"></span></div>
-       <div class="event-date"><span class="event-num">08</span><span>23–27 октября</span></div>
-       <div class="event-card">
-        <div class="card-top"><span class="event-category">АГЕНТЫ</span><span class="event-symbol" aria-hidden="true">⌘</span></div>
-        <h3>GINGER AGENT</h3><p class="event-subtitle">Первое прикладное направление</p>
-        <p class="event-description">UNIX учится безопасно читать интерфейс Ginger, распознавать товары и предлагать варианты сопоставления. Появляется первый конкретный агент.</p>
-        <div class="tags"><span class="tag">Ginger</span><span class="tag">CPU OCR</span><span class="tag">Сопоставление</span><span class="tag">Read-only</span></div>
-        <details class="details"><summary>Подробнее об этапе <span class="summary-plus" aria-hidden="true">+</span></summary><div class="details-content"><ul><li>Чтение интерфейса и сбор кандидатов на сопоставление.</li><li>Логи на русском, ручная проверка спорных совпадений.</li><li>Запись в Ginger и автоматическое изменение товаров пока отключены.</li></ul><blockquote>«Первый агент пока наблюдает и анализирует. Доступ к изменениям — только под контролем.»</blockquote></div></details>
-       </div>
-      </article>
-<article id="event-09" class="event reveal" data-kind="story" data-search="история проекта разработка становится видимой появляется идея отдельного пространства для истории unix — этапы, коммиты, тесты и движение к будущей версии. unix development история roadmap">
-       <div class="rail-node" aria-hidden="true"><span class="rail-core"></span></div>
-       <div class="event-date"><span class="event-num">09</span><span>2 ноября</span></div>
-       <div class="event-card">
-        <div class="card-top"><span class="event-category">ПОВОРОТНЫЙ МОМЕНТ</span><span class="event-symbol" aria-hidden="true">↗</span></div>
-        <h3>ИСТОРИЯ ПРОЕКТА</h3><p class="event-subtitle">Разработка становится видимой</p>
-        <p class="event-description">Появляется идея отдельного пространства для истории UNIX — этапы, коммиты, тесты и движение к будущей версии.</p>
-        <div class="tags"><span class="tag">UNIX Development</span><span class="tag">История</span><span class="tag">Roadmap</span></div>
-        <details class="details"><summary>Подробнее об этапе <span class="summary-plus" aria-hidden="true">+</span></summary><div class="details-content"><ul><li>Идея публично показывать путь проекта, а не только финальную версию.</li><li>Хронология разработки становится частью идентичности UNIX.</li></ul><blockquote>«У каждого большого проекта есть история. UNIX тоже заслуживает свою.»</blockquote></div></details>
-       </div>
-      </article>
-<article id="event-10" class="event reveal" data-kind="agents" data-search="агентная система один unix — много специализаций в интерфейсе появляется отдельная вкладка «агенты». ginger становится первой специализацией, а центральный unix — будущим координатором команды. агенты pr #165 навигация">
-       <div class="rail-node" aria-hidden="true"><span class="rail-core"></span></div>
-       <div class="event-date"><span class="event-num">10</span><span>3 ноября</span></div>
-       <div class="event-card">
-        <div class="card-top"><span class="event-category">АГЕНТЫ</span><span class="event-symbol" aria-hidden="true">✣</span></div>
-        <h3>АГЕНТНАЯ СИСТЕМА</h3><p class="event-subtitle">Один UNIX — много специализаций</p>
-        <p class="event-description">В интерфейсе появляется отдельная вкладка «Агенты». Ginger становится первой специализацией, а центральный UNIX — будущим координатором команды.</p>
-        <div class="tags"><span class="tag">Агенты</span><span class="tag">PR #165</span><span class="tag">Навигация</span></div>
-        <details class="details"><summary>Подробнее об этапе <span class="summary-plus" aria-hidden="true">+</span></summary><div class="details-content"><ul><li>Новая вкладка в меню настольного приложения.</li><li>Прототип карточки Ginger Agent и его статусов.</li><li>PR #165 объединён с рабочей веткой Ginger; это ещё не main.</li></ul><blockquote>«Идея меняется: не один универсальный ИИ, а множество помощников под единым управлением.»</blockquote><a class="source-link" href="https://github.com/philip377/BabyAI-Core/pull/165" target="_blank" rel="noopener noreferrer">Открыть PR #165 <span aria-hidden="true">↗</span></a></div></details>
-       </div>
-      </article>
-<article id="event-11" class="event reveal" data-kind="agents" data-search="питомец ginger агенты обретают лица появляется виртуальный персонаж ginger с отдельным окном, перетаскиванием, морганием и сообщениями об этапах работы. companion pr #166 winui статусы">
-       <div class="rail-node" aria-hidden="true"><span class="rail-core"></span></div>
-       <div class="event-date"><span class="event-num">11</span><span>4 ноября</span></div>
-       <div class="event-card">
-        <div class="card-top"><span class="event-category">АГЕНТЫ</span><span class="event-symbol" aria-hidden="true">♥</span></div>
-        <h3>ПИТОМЕЦ GINGER</h3><p class="event-subtitle">Агенты обретают лица</p>
-        <p class="event-description">Появляется виртуальный персонаж Ginger с отдельным окном, перетаскиванием, морганием и сообщениями об этапах работы.</p>
-        <div class="tags"><span class="tag">Companion</span><span class="tag">PR #166</span><span class="tag">WinUI</span><span class="tag">Статусы</span></div>
-        <details class="details"><summary>Подробнее об этапе <span class="summary-plus" aria-hidden="true">+</span></summary><div class="details-content"><ul><li>Отдельное управляемое окно питомца и карточка во вкладке «Агенты».</li><li>Реплики отражают состояния проверки, а не скрытые мысли модели.</li><li>Рабочая панель Ginger развивается отдельно от журнала диагностики.</li><li>На эту дату PR #166 остаётся в разработке и требует UI-проверки.</li></ul><blockquote>«Теперь агент — не просто функция. У него появляется присутствие на экране.»</blockquote><a class="source-link" href="https://github.com/philip377/BabyAI-Core/pull/166" target="_blank" rel="noopener noreferrer">Открыть PR #166 <span aria-hidden="true">↗</span></a></div></details>
-       </div>
-      </article>
-   </div>
-   <div class="empty hidden" id="emptyState" role="status">Ничего не найдено. Попробуй другой запрос или фильтр.</div>
+    </div>
   </section>
-  <section id="vision" class="vision" aria-labelledby="vision-title"><div class="vision-kicker">/ ROADMAP — NEXT</div><h2 id="vision-title">Следующая глава<br>ещё не написана.</h2><p>Планы, а не готовые возможности. UNIX должен перейти от наблюдения и анализа к контролируемому выполнению реальных задач.</p><div class="future-grid"><div class="future-card"><span class="future-number">01</span><h3>Самостоятельный Ginger Agent</h3><p>Маршруты работы с товарами, проверяемые результаты, запрос подтверждения перед изменениями.</p></div><div class="future-card"><span class="future-number">02</span><h3>PRIMUS как координатор</h3><p>Один запрос к UNIX → выбор подходящего агента → выполнение → единый отчёт.</p></div><div class="future-card"><span class="future-number">03</span><h3>Живые питомцы</h3><p>Прозрачные окна, анимации, характеры и реакции на реальные события — без помех полноэкранным играм.</p></div><div class="future-card"><span class="future-number">04</span><h3>Экосистема модулей</h3><p>Новые агенты для прайсов, аналитики продаж, рассылок и других повторяющихся задач.</p></div></div></section>
-  <aside class="note"><span class="note-icon" aria-hidden="true">ⓘ</span><div><strong>Примечание к истории</strong><p>Это художественно оформленная хронология по обсуждениям проекта и известным этапам GitHub. Ранние даты сгруппированы по периодам. Описания показывают направление и прототипы, а не утверждают, что все функции уже готовы. Состояние указано на 4 ноября 2026 года.</p></div></aside>
+
+  <section class="wrap section" id="agents">
+    <div class="section-head"><div><div class="label">03 / Агентная система</div><h2>Знакомься с <span class="accent">командой.</span></h2></div><p>У каждого агента своя роль, характер и визуальный образ. Ниже — концептуальные специализации, а не список уже запущенных автономных сервисов.</p></div>
+    <div class="agents-grid">
+      <article class="agent"><div class="agent-top"><div><h3>PRIMUS</h3><div class="job">COORDINATOR</div></div><span class="pill plan">Концепция</span></div><div class="pet" aria-hidden="true"><span></span></div><p>Координатор. Принимает цель, разбивает её на шаги и направляет задачи нужным исполнителям.</p><div class="agent-foot"><small>Роль 01 / Планирование</small><span aria-hidden="true">↗</span></div></article>
+      <article class="agent"><div class="agent-top"><div><h3>MEMORIA</h3><div class="job">KNOWLEDGE</div></div><span class="pill plan">Концепция</span></div><div class="pet memory" aria-hidden="true"><span></span></div><p>Хранитель контекста. Помогает учитывать опыт, события, историю и полезные связи между фактами.</p><div class="agent-foot"><small>Роль 02 / Память</small><span aria-hidden="true">↗</span></div></article>
+      <article class="agent"><div class="agent-top"><div><h3>OPERIS</h3><div class="job">EXECUTION</div></div><span class="pill plan">Концепция</span></div><div class="pet action" aria-hidden="true"><span></span></div><p>Исполнитель. В перспективе будет работать с приложениями и документами в заданных границах доступа.</p><div class="agent-foot"><small>Роль 03 / Инструменты</small><span aria-hidden="true">↗</span></div></article>
+    </div>
+  </section>
+
+  <section class="wrap section" id="demonstration">
+    <div class="section-head"><div><div class="label">04 / Интерактивное демо</div><h2>Посмотри, как это <span class="accent">задумано.</span></h2></div><p>Небольшая интерактивная симуляция показывает распределение задач. Она не обращается к настоящей модели, компьютеру или данным.</p></div>
+    <div class="demo-shell">
+      <div class="demo-top"><strong>UNIX / SIMULATION TERMINAL</strong><div class="demo-dots" aria-hidden="true"><i></i><i></i><i></i></div></div>
+      <div class="demo-content">
+        <div class="demo-control">
+          <div class="label">Выбрать сценарий</div><h3>Задача для агентов</h3><p>Нажми на сценарий, затем запусти симуляцию. Каждый шаг сопровождается пояснением, какой агент в нём участвует.</p>
+          <div class="demo-options" role="group" aria-label="Сценарии демонстрации">
+            <button class="demo-option" type="button" data-scenario="report" aria-pressed="true">Отчёт</button>
+            <button class="demo-option" type="button" data-scenario="document" aria-pressed="false">Документ</button>
+            <button class="demo-option" type="button" data-scenario="memory" aria-pressed="false">Память</button>
+          </div>
+          <div class="demo-request" id="demoRequest">«Проанализируй вымышленные показатели за неделю и подготовь краткий отчёт»</div>
+          <div class="demo-action"><button class="btn btn-primary" id="demoStart" type="button">Запустить симуляцию <span aria-hidden="true">▶</span></button><small>Без подключения к сети</small></div>
+        </div>
+        <div class="demo-terminal">
+          <div class="terminal-title"><span>EXECUTION / PREVIEW</span><span class="terminal-live" id="demoStatus">Готово к запуску</span></div>
+          <ol class="terminal-log" id="demoLog" aria-live="polite" aria-atomic="false"><li class="log-dim">Выберите задачу и запустите демонстрацию.</li><li class="log-dim">Здесь появится последовательность действий.</li></ol>
+          <div class="terminal-footer"><i aria-hidden="true"></i><span id="demoFoot">Только демонстрация интерфейса. Все данные вымышленные.</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="disclaimer">Демонстрационный сценарий выполняется в браузере: никаких запросов к ИИ или сторонним серверам, никаких настоящих документов, накладных или переписок.</p>
+  </section>
+
+  <section class="wrap section" id="roadmap">
+    <div class="section-head"><div><div class="label">05 / Дорожная карта</div><h2>Следующие главы.</h2></div><p>План развития отражает направления работы, а не обещанные даты выпуска или готовность функций.</p></div>
+    <div class="roadmap">
+      <article class="road"><div class="road-num">PHASE / 01</div><h3>Основа</h3><p>Единый настольный интерфейс, локальный runtime, понятные журналы и интеграция существующих модулей.</p><span class="pill prototype">В разработке</span></article>
+      <article class="road"><div class="road-num">PHASE / 02</div><h3>Связанные агенты</h3><p>Специализации, общая память, делегирование задач, ограниченные разрешения и проверка результатов.</p><span class="pill plan">Следующий этап</span></article>
+      <article class="road"><div class="road-num">PHASE / 03</div><h3>Самостоятельная среда</h3><p>Наблюдение за процессами, длительные задания, настольные питомцы и расширяемая экосистема инструментов.</p><span class="pill goal">Долгосрочная цель</span></article>
+    </div>
+  </section>
+  <section class="wrap section">
+    <div class="archive-feature"><div><div class="label">06 / Архив разработки</div><h2>У каждой системы<br>есть своя история.</h2><p>От первых экспериментов с BabyAI до идеи команды агентов и полноценной локальной среды. Посмотри, как менялся UNIX — шаг за шагом.</p></div><a class="btn btn-secondary" href="./history.html">Открыть хронологию <span aria-hidden="true">↗</span></a></div>
+  </section>
 </main>
-<footer class="footer"><span><b>UNIX</b> · от BabyAI к системе агентов · 2026</span><span>Сделано как самостоятельная HTML-страница · работает офлайн</span><a class="back-top" href="#top">Наверх ↑</a></footer>
-</div>
-<script>
-(function(){
-  'use strict';
-  const cards=[...document.querySelectorAll('.event')];
-  const buttons=[...document.querySelectorAll('.filter')];
-  const search=document.getElementById('searchInput');
-  const empty=document.getElementById('emptyState');
-  const progress=document.getElementById('scrollProgress');
-  let filter='all';
-  function updateFilter(){
-    const query=search.value.trim().toLocaleLowerCase('ru-RU');
-    let count=0;
-    cards.forEach(card=>{
-      const match=(filter==='all'||card.dataset.kind===filter)&&(!query||card.dataset.search.includes(query));
-      card.classList.toggle('hidden',!match);
-      if(match){count++;card.classList.add('is-visible');}
-    });
-    empty.classList.toggle('hidden',count!==0);
-    buttons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.filter===filter)));
-  }
-  buttons.forEach(button=>button.addEventListener('click',()=>{filter=button.dataset.filter;updateFilter();}));
-  search.addEventListener('input',updateFilter);
-  function updateProgress(){const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?Math.min(100,scrollY/max*100):0)+'%';}
-  addEventListener('scroll',updateProgress,{passive:true});addEventListener('resize',updateProgress,{passive:true});updateProgress();
-  if('IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
-    const observer=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');observer.unobserve(entry.target);}})},{rootMargin:'0px 0px -40px 0px',threshold:.08});
-    cards.forEach(card=>observer.observe(card));
-  }else cards.forEach(card=>card.classList.add('is-visible'));
-})();
-</script>
-<script>
-(function(){
-'use strict';
-var root=document.documentElement,overlay=document.getElementById('unixBoot'),skip=document.getElementById('bootSkip'),replay=document.getElementById('bootReplay'),status=document.getElementById('bootStatus'),bar=document.getElementById('bootFill');
-if(!overlay||!skip||!status||!bar){root.classList.remove('boot-on');return;}
-var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches,playing=false,timers=[],focusBefore=null;
-var stages=[[0,'Инициализация UNIX…'],[700,'PRIMUS // ядро готово'],[1380,'MEMORIA // история загружена'],[2050,'AGENTS // связь установлена'],[2720,'UNIX // ДОСТУП ОТКРЫТ']];
-function clear(){timers.forEach(clearTimeout);timers=[];}
-function finish(){
- if(!playing)return;
- playing=false;clear();overlay.classList.add('is-leaving');
- timers.push(setTimeout(function(){overlay.hidden=true;root.classList.remove('boot-on');if(focusBefore&&focusBefore.isConnected&&focusBefore!==document.body)focusBefore.focus({preventScroll:true});},530));
-}
-function start(){
- if(reduced)return;
- clear();focusBefore=document.activeElement;playing=true;overlay.hidden=false;overlay.classList.remove('is-leaving');root.classList.add('boot-on');
- status.textContent=stages[0][1];bar.style.transition='none';bar.style.width='0%';void bar.offsetWidth;
- requestAnimationFrame(function(){bar.style.transition='width 3100ms linear';bar.style.width='100%';});
- stages.slice(1).forEach(function(step){timers.push(setTimeout(function(){if(playing)status.textContent=step[1];},step[0]));});
- timers.push(setTimeout(finish,3300));skip.focus({preventScroll:true});
-}
-skip.addEventListener('click',finish);
-if(replay)replay.addEventListener('click',start);
-document.addEventListener('keydown',function(e){if(!playing)return;if(e.key==='Escape'){e.preventDefault();finish();}else if(e.key==='Tab'){e.preventDefault();skip.focus({preventScroll:true});}});
-if(reduced||!root.classList.contains('boot-on')){overlay.hidden=true;root.classList.remove('boot-on');}else start();
-})();
-</script>
-</body></html>
+<footer class="wrap site-footer"><a class="logo" href="./index.html"><span class="logo-mark" aria-hidden="true">✦</span><span class="logo-word">UNIX</span></a><p>© 2026 UNIX. Независимый проект в разработке.</p><p>LOCAL-FIRST · BUILT TO EVOLVE</p></footer>
+</body>
+</html>
