@@ -71,6 +71,79 @@
     }));
   }
 
+  // This selector is a static architectural illustration, not a model connection.
+  const modelModes = {
+    local: {
+      title: 'Локальная обработка',
+      status: 'Основа работает',
+      className: 'pill goal',
+      description: 'Нативная модель выполняет запросы на устройстве. Память и разрешения остаются под контролем пользователя.',
+      points: [
+        'CPU или Vulkan в зависимости от конфигурации',
+        'Рабочие пространства и локальный контекст',
+        'Интернет не нужен для базового диалога'
+      ],
+      engineLabel: 'LOCAL PROCESSING',
+      engineName: 'GGUF / CPU + VULKAN',
+      footer: 'Без обязательного облака · демо архитектуры'
+    },
+    custom: {
+      title: 'Собственная модель',
+      status: 'Частично реализовано',
+      className: 'pill prototype',
+      description: 'В нативном runtime можно настраивать локальную GGUF-модель. Полноценный пользовательский менеджер моделей и изоляция сторонних загрузчиков — отдельная будущая работа.',
+      points: [
+        'Замена интеллектуального движка, а не правил доступа',
+        'Проверка совместимости инструментов до включения',
+        'Официальная модель и пользовательские эксперименты отдельно'
+      ],
+      engineLabel: 'CUSTOM / LOCAL',
+      engineName: 'USER GGUF MODEL',
+      footer: 'Режим показан концептуально · никаких файлов не загружается'
+    },
+    hybrid: {
+      title: 'Гибридная архитектура',
+      status: 'Запланировано',
+      className: 'pill plan',
+      description: 'При необходимости UNIX сможет предложить удалённую модель. Отправка данных потребует отдельного решения владельца и понятного описания того, что передаётся.',
+      points: [
+        'Локальная обработка по умолчанию',
+        'Облако — только по явному согласию',
+        'Отдельные правила для чувствительных документов'
+      ],
+      engineLabel: 'OPTIONAL REMOTE',
+      engineName: 'CONSENT-BASED CLOUD',
+      footer: 'Будущий режим · серверное соединение не выполняется'
+    }
+  };
+  const modeButtons = [...document.querySelectorAll('[data-mode]')];
+  const modeTitle = document.getElementById('modeTitle');
+  const modeStatus = document.getElementById('modeStatus');
+  const modeDescription = document.getElementById('modeDescription');
+  const modePoints = document.getElementById('modePoints');
+  const modeEngineLabel = document.getElementById('modeEngineLabel');
+  const modeEngineName = document.getElementById('modeEngineName');
+  const modeFootnote = document.getElementById('modeFootnote');
+  if (modeButtons.length && modeTitle && modeStatus && modeDescription && modePoints && modeEngineLabel && modeEngineName && modeFootnote) {
+    modeButtons.forEach(button => button.addEventListener('click', () => {
+      const mode = modelModes[button.dataset.mode];
+      if (!mode) return;
+      modeButtons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+      modeTitle.textContent = mode.title;
+      modeStatus.textContent = mode.status;
+      modeStatus.className = mode.className;
+      modeDescription.textContent = mode.description;
+      modePoints.replaceChildren(...mode.points.map(point => {
+        const li = document.createElement('li');
+        li.textContent = point;
+        return li;
+      }));
+      modeEngineLabel.textContent = mode.engineLabel;
+      modeEngineName.textContent = mode.engineName;
+      modeFootnote.textContent = mode.footer;
+    }));
+  }
+
   const scenarios = {
     report: {
       request: '«Проанализируй вымышленные показатели за неделю и подготовь краткий отчёт»',
@@ -100,6 +173,16 @@
         ['MEMORIA', 'Следующий шаг по сценарию — собрать обратную связь.'],
         ['PRIMUS', 'Рекомендация проверена на соответствие учебной заметке.'],
         ['RESULT', 'Демо завершено: показано использование вымышленных фактов.']
+      ]
+    },
+    match: {
+      request: '«Найди точное соответствие для вымышленного товара AROMA NIGHT 50 мл (тестер)»',
+      steps: [
+        ['PRIMUS', 'Получена учебная позиция. Настоящий каталог не открывается.'],
+        ['MEMORIA', 'Сопоставлены признаки: название, объём 50 мл и состояние «тестер».'],
+        ['OPERIS', 'В учебном списке есть 50 мл обычный и 50 мл тестер.'],
+        ['PRIMUS', 'Подготовлен кандидат «AROMA NIGHT 50 мл (тестер)».'],
+        ['RESULT', 'Симуляция завершена: выбор требует проверки человеком; запись не выполнена.']
       ]
     }
   };
